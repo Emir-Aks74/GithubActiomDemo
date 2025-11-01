@@ -1,5 +1,9 @@
 name: random-forest-hastalik-teshisi
 on: [push]
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -19,7 +23,7 @@ jobs:
           cat metrikler.txt >> rapor.md
 
           echo "## Veri Görselleri" >> rapor.md
-          cml-publish ozellik_onem.png --md >> rapor.md
-          # cml-publish ******** --md >> rapor.md
+          echo "![](./ozellik_onem.png)" >> rapor.md
+          #  echo "![](./*********)" >> rapor.md
 
-          cml-send-comment rapor.md
+          cml comment create rapor.md
