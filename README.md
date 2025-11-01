@@ -1,2 +1,2 @@
-# GithubActiomDemo
+# GithubActionsDemo
 Github Actions Deneme
