@@ -18,7 +18,7 @@ jobs:
         run: |
           # Bu komutun çalıştığından ve başarılı olduğundan emin olmalıyız.
           # Dosyanın adının 'gereklikutuphaneler.txt' olduğundan emin olun.
-          pip install -r gereklikutuphaneler.txt
+          pip install gereklikutuphaneler.txt
       
       # 💡 ADIM 2: KODU ÇALIŞTIR
       - name: 🧠 ML İş Akışını Çalıştır
