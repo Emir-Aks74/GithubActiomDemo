@@ -21,11 +21,9 @@ import seaborn as sns
 seed = 13
 
 # veri setinin yüklenmesi
-dosya_yolu = r"C:\Users\Lenovo\OneDrive\Emir Aksu\OneDrive\Desktop\Semih Açmalı github\heart.csv"
-
+# kalphastaligi.py dosyasındaki DOĞRU SATIR
+dosya_yolu = 'heart.csv'  # Veya sadece "heart.csv" kullanın
 df = pd.read_csv(dosya_yolu)
-
-print(df.head())
 
 
 # Sayisal olmayan özelliklerin tespiti
@@ -96,6 +94,7 @@ ax.set_title('Random forest\nözellik önemi', fontsize = title_fs)
 plt.tight_layout()
 plt.savefig("ozellik_onem.png",dpi=120) 
 plt.close()
+
 
 
 
