@@ -3,19 +3,25 @@ on: [push]
 jobs:
   run:
     runs-on: ubuntu-latest
-    # optionally use a convenient Ubuntu LTS + DVC + CML image
+    # Özel CML container kullanılıyor
     container: ghcr.io/iterative/cml:0-dvc2-base1
     steps:
       - uses: actions/checkout@v3
-     
+      
+      # CML'in temel kurulum adımı
       - uses: iterative/setup-cml@v1
+      
       - name: cml-run
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Your ML workflow goes here
+          
           pip install -r gereklikutuphaneler.txt
+          
+          # Your ML workflow goes here
           python kalphastaligi.py
 
           echo "Model Metrikleri"
           cat metrikler.txt
+          
+          
