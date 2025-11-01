@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 """
+Created on Sat Nov  1 20:38:57 2025
+
+@author: Emir Aksu
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Kalp hastaligin teshisi icin random forest algoritmasinin kullanimi
 """
 
@@ -14,7 +21,11 @@ import seaborn as sns
 seed = 13
 
 # veri setinin yüklenmesi
-df = pd.read_csv("heart.csv")
+dosya_yolu = r"C:\Users\Lenovo\OneDrive\Emir Aksu\OneDrive\Desktop\Semih Açmalı github\heart.csv"
+
+df = pd.read_csv(dosya_yolu)
+
+print(df.head())
 
 
 # Sayisal olmayan özelliklerin tespiti
