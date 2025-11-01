@@ -1,27 +1,32 @@
 name: random-forest-hastalik-teshisi
 on: [push]
+
 jobs:
   run:
     runs-on: ubuntu-latest
     # Özel CML container kullanılıyor
     container: ghcr.io/iterative/cml:0-dvc2-base1
+    
     steps:
       - uses: actions/checkout@v3
-      
+
       # CML'in temel kurulum adımı
       - uses: iterative/setup-cml@v1
       
-      - name: cml-run
+      # 💡 ADIM 1: BAĞIMLILIKLARI AYRI BİR ADIMDA YÜKLE
+      - name: 📦 Bağımlılıkları Yükle
+        run: |
+          # Bu komutun çalıştığından ve başarılı olduğundan emin olmalıyız.
+          # Dosyanın adının 'gereklikutuphaneler.txt' olduğundan emin olun.
+          pip install -r gereklikutuphaneler.txt
+      
+      # 💡 ADIM 2: KODU ÇALIŞTIR
+      - name: 🧠 ML İş Akışını Çalıştır
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          
-          pip install -r gereklikutuphaneler.txt
-          
-          # Your ML workflow goes here
+          # Artık Pandas'ın yüklü olması gerekiyor.
           python kalphastaligi.py
-
+          
           echo "Model Metrikleri"
           cat metrikler.txt
-          
-          
