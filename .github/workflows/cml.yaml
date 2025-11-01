@@ -1,32 +1,29 @@
 name: random-forest-hastalik-teshisi
 on: [push]
-
+permissions:
+  issues: write
+  pull-requests: write
+  contents: read
 jobs:
   run:
     runs-on: ubuntu-latest
-    # Özel CML container kullanılıyor
+    # optionally use a convenient Ubuntu LTS + DVC + CML image
     container: ghcr.io/iterative/cml:0-dvc2-base1
-    
     steps:
       - uses: actions/checkout@v3
-
-      # CML'in temel kurulum adımı
-      - uses: iterative/setup-cml@v1
-      
-      # 💡 ADIM 1: BAĞIMLILIKLARI AYRI BİR ADIMDA YÜKLE
-      - name: 📦 Bağımlılıkları Yükle
-        run: |
-          # Bu komutun çalıştığından ve başarılı olduğundan emin olmalıyız.
-          # Dosyanın adının 'gereklikutuphaneler.txt' olduğundan emin olun.
-          pip install gereklikutuphaneler.txt
-      
-      # 💡 ADIM 2: KODU ÇALIŞTIR
-      - name: 🧠 ML İş Akışını Çalıştır
+      - name: cml-run
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          # Artık Pandas'ın yüklü olması gerekiyor.
+          # Your ML workflow goes here
+          pip install -r gereklikutuphaneler.txt
           python kalphastaligi.py
           
-          echo "Model Metrikleri"
-          cat metrikler.txt
+          echo "## Model Metrikleri" >> rapor.md
+          cat metrikler.txt >> rapor.md
+
+          echo "## Veri Görselleri" >> rapor.md
+          echo "![](./ozellik_onem.png)" >> rapor.md
+          #  echo "![](./*********)" >> rapor.md
+
+          cml comment create rapor.md
