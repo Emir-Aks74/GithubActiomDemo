@@ -1,9 +1,5 @@
 name: random-forest-hastalik-teshisi
 on: [push]
-permissions:
-  issues: write
-  pull-requests: write
-  contents: read
 jobs:
   run:
     runs-on: ubuntu-latest
@@ -16,14 +12,14 @@ jobs:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           # Your ML workflow goes here
-          pip install -r gereklikutuphaneler.txt
+          pip install -r requirements.txt
           python kalphastaligi.py
           
           echo "## Model Metrikleri" >> rapor.md
           cat metrikler.txt >> rapor.md
 
-          echo "## Veri Görselleri" >> rapor.md
-          echo "![](./ozellik_onem.png)" >> rapor.md
-          #  echo "![](./*********)" >> rapor.md
+          echo '## Veri Görselleri" >> rapor.md
+          cml-publish ozellik_onem.png --md >> rapor.md
+          # cml-publish ******** --md >> rapor.md
 
-          cml comment create rapor.md
+          cml-send-comment rapor.md
